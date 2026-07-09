@@ -72,7 +72,8 @@ namespace Player
             if(CurrentWeapon?.gameObject != null) Destroy(CurrentWeapon.gameObject);
             CurrentWeapon = Instantiate(CurrentWeaponPrefab, leftHand.transform);
             CurrentWeapon.PositionInHands(rightHand, leftHand);
-            
+            Debug.Log($"leftHand lossyScale: {leftHand.transform.lossyScale}");
+
             // set value in animator used to determine correct idle animation
             // base on CurrentWeapon.WeaponType
             if (animator != null)

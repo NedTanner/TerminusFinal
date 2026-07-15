@@ -244,6 +244,8 @@ namespace Player
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             moveDir = Vector3.ProjectOnPlane(moveDir, groundNormal); // Aligns movement to the normal of the slope, normal comes from SphereCast in GroundedCheck().
 
+
+
             if (playerInput.MoveVector == Vector2.zero) // Stops player from constantly shimmying from groundStickForce when no inputs are detected.
             {
                 if (Grounded)

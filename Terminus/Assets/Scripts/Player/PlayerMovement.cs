@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Player
 {
@@ -17,15 +19,13 @@ namespace Player
         public PlayerMovementStates CurrentMovementState => _currentMovementState;
         
         private static readonly int Speed = Animator.StringToHash("Speed");
-        private static readonly int IsFalling = Animator.StringToHash("isFalling");
-        private static readonly int IsDodging = Animator.StringToHash("isDodging");
+        private static readonly int IsFalling = Animator.StringToHash("IsFalling");
 
         private PlayerInput playerInput;
         private CharacterController characterController;
         [SerializeField] private Transform playerCameraTransform;
         
         [SerializeField] private Animator animator;
-        private PlayerCombat _playerCombat;
 
         [field: Header("Turning")]
         [SerializeField] private float turnSmoothing = 0.1f;
@@ -88,14 +88,13 @@ namespace Player
         {   
             // can't attack if dodging
             // dodgeReadyTimer will be Time.time + dodgeCooldown when dodge ends, compare until dodgeCooldown time has passed.
-            canDodge = !_playerCombat.Attacking && dodgeReadyTimer <= Time.time; 
+            canDodge = dodgeReadyTimer <= Time.time; 
         }
 
         private void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
             characterController = GetComponent<CharacterController>();
-            _playerCombat = GetComponent<PlayerCombat>();
             dodgeTimeRemaining = dodgeTime;
         }
 
@@ -159,6 +158,7 @@ namespace Player
             {
                 _currentMovementState = PlayerMovementStates.Idle;
                 animator.SetBool(IsFalling, false);
+                animator.SetTrigger("Land");
             }
 
         }
@@ -167,9 +167,14 @@ namespace Player
         {  
             Vector3 moveDir = GetMoveDir();
             float moveSpeed = GetMoveSpeed();
+
+            float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
+
             animator.SetFloat(Speed, moveSpeed);
             characterController.Move(moveDir * (speed * moveSpeed * Time.deltaTime));
-            
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
             // == transitions
             if (!Grounded)
             {
@@ -193,6 +198,10 @@ namespace Player
         {
             dodgeTimeRemaining -= Time.deltaTime;
             isImmune = true;
+
+            float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             if (dodgeTimeRemaining <= 0f)
             {
@@ -235,14 +244,10 @@ namespace Player
             float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
 
-            // don't rotate the character if they are attacking
-            if (!_playerCombat.Attacking)
-            {
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            }
-
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             moveDir = Vector3.ProjectOnPlane(moveDir, groundNormal); // Aligns movement to the normal of the slope, normal comes from SphereCast in GroundedCheck().
+
+
 
             if (playerInput.MoveVector == Vector2.zero) // Stops player from constantly shimmying from groundStickForce when no inputs are detected.
             {

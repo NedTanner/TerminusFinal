@@ -5,7 +5,7 @@ using Enemy;
 
 public class BreakableObject : MonoBehaviour, IDamageable
 {
-    [SerializeField] private GameObject gibObject; // Prefab for giblets.
+    [SerializeField] private GameObject gibObject; // Prefab for giblets. Need to rework for particle system. DON'T FORGET!
     [SerializeField] private int maxHealth = 1;
     [SerializeField] private GameObject[] baseMeshes; // Include anything you want to disappear when the prop is broken. Base mesh is replaced by matching giblets.
     private int _currentHealth;

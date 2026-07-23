@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0053b6919c46604799b4c86a716ab65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BreakableObject
-  gibObject: {fileID: 4627725573420860672, guid: 98dd6f9f85ab9264db22067c4a75571f, type: 3}
+  gibObject: {fileID: 0}
   maxHealth: 1
   baseMeshes:
   - {fileID: 6609817141521597354}

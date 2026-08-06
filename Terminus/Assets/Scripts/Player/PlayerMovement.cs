@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 namespace Player
 {
@@ -8,21 +9,24 @@ namespace Player
     public enum PlayerMovementStates
     {
         Idle,
+        Attacking,
         Moving,
         Falling,
         Dodge
+        
     }
     
     public class PlayerMovement : MonoBehaviour
     {
-        private PlayerMovementStates _currentMovementState = PlayerMovementStates.Idle;
+        public PlayerMovementStates _currentMovementState = PlayerMovementStates.Idle;
         public PlayerMovementStates CurrentMovementState => _currentMovementState;
         
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
 
         private PlayerInput playerInput;
-        private CharacterController characterController;
+        public CharacterController characterController;
+        private PlayerCombat playerCombat;
         [SerializeField] private Transform playerCameraTransform;
         
         [SerializeField] private Animator animator;
@@ -57,7 +61,7 @@ namespace Player
         [SerializeField] private float dodgeCooldown;
         [SerializeField] private float dodgeGravityModifier;
         [SerializeField] public bool isImmune;
-        private float dodgeReadyTimer = 0.01f; // Keep at 0, makes a timestamp for dodge cooldown.
+        private float dodgeReadyTimer = 0.01f; // Keep at 0.01, makes a timestamp for dodge cooldown.
         
         [field: Header("Dodge Back")]
         [SerializeField]private float dodgeBackDistance = 2.25f;
@@ -95,6 +99,7 @@ namespace Player
         {
             playerInput = GetComponent<PlayerInput>();
             characterController = GetComponent<CharacterController>();
+            playerCombat = GetComponent<PlayerCombat>();
             dodgeTimeRemaining = dodgeTime;
         }
 
@@ -106,6 +111,10 @@ namespace Player
             {
                 case PlayerMovementStates.Moving:
                     Moving();
+                    break;
+
+                case PlayerMovementStates.Attacking:
+                    Attacking();
                     break;
 
                 case PlayerMovementStates.Falling:
@@ -124,12 +133,18 @@ namespace Player
                     break;
             }
         }
-
+        
         private void Idle()
         {
             animator.SetFloat(Speed, 0.0f);
-            
+
             // == transitions
+
+            if (playerCombat.isAttacking && Grounded)
+            {
+                EnterAttack();
+            }
+
             if (!Grounded)
             {
                 _currentMovementState = PlayerMovementStates.Falling;
@@ -145,6 +160,34 @@ namespace Player
                 _currentMovementState = PlayerMovementStates.Dodge;
 
                 animator.SetTrigger("Dodge");
+            }
+        }
+
+        public void EnterAttack()
+        {
+            Debug.Log("ENTERED ATTACK");
+            transform.rotation = Quaternion.Euler(0f, playerCameraTransform.eulerAngles.y, 0f);
+
+            _currentMovementState = PlayerMovementStates.Attacking;
+        }
+        public void Attacking()
+        {
+            animator.SetFloat(Speed, 0.0f);
+
+            // == transitions!
+            if (!playerCombat.isAttacking && Grounded && playerInput.MoveVector != Vector2.zero)
+            {
+                _currentMovementState = PlayerMovementStates.Moving;
+            }
+
+            if (!playerCombat.isAttacking && Grounded && playerInput.MoveVector == Vector2.zero)
+            {
+                _currentMovementState = PlayerMovementStates.Idle;
+            }
+
+            if (!playerCombat.isAttacking && !Grounded)
+            {
+                _currentMovementState = PlayerMovementStates.Falling;
             }
         }
 
@@ -176,6 +219,12 @@ namespace Player
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             // == transitions
+
+            if (playerCombat.isAttacking && Grounded)
+            {
+                EnterAttack();
+            }
+
             if (!Grounded)
             {
                 _currentMovementState = PlayerMovementStates.Falling;
@@ -196,6 +245,11 @@ namespace Player
         
         private void Dodge()
         {
+            if (playerCombat.isAttacking)
+            {
+                EnterAttack();
+            }
+
             dodgeTimeRemaining -= Time.deltaTime;
             isImmune = true;
 
@@ -283,6 +337,21 @@ namespace Player
             return moveDir;
         }
 
+        // For use with the animator. Applies movement forward with customisable force. Baseline is 0.5f.
+        public void ForwardAttackForce(float force)
+        {
+            float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
 
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDir = Vector3.ProjectOnPlane(moveDir, groundNormal);
+
+            characterController.Move(moveDir * force);
+
+            /*if (Grounded)
+            {
+                characterController.Move(transform.forward * force);
+            }*/
+        }
     }
 }

@@ -9,7 +9,6 @@ namespace Player
         private float _currentPower;
         private float _currentRegen = -1.0f;    // value of -1 means not regenerating
         private float _secsSinceLastRegen;
-        private PlayerCombat _playerCombat;
         
         public float DrawUponPower(float regenRate)
         {
@@ -33,7 +32,6 @@ namespace Player
             // only if we are:
             //  - not attacking
             //  - have a regen rate > 0
-            if (!_playerCombat.Attacking && _currentRegen > 0) RegenPower();
         }
 
         private void RegenPower()
@@ -57,7 +55,6 @@ namespace Player
         
         private void Awake()
         {
-            _playerCombat = GetComponent<PlayerCombat>();
             _currentPower = maxPower;
         }
         

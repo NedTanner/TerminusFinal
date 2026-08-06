@@ -4,7 +4,7 @@ using Weapons;
 
 namespace Player
 {
-    public class PlayerCombat : MonoBehaviour
+    public class PlayerCombatOld : MonoBehaviour
     {
         private InputAction _attackAction;
         private PlayerMovement _playerMovement;

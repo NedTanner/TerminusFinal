@@ -1,3 +1,4 @@
+using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,8 +19,16 @@ public class GruntEnemy : MonoBehaviour
     [SerializeField] private float stoppingDistance = 1.5f;
     [SerializeField] private float loseInterestRange = 12f; // gives up if player runs far enough away
 
-    private enum State { Idle, Chase }
+    [Header("Attack")]
+    [SerializeField] private float attackRange = 2f;       // distance at which it stops and swings
+    [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
+    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
+
+    private enum State { Idle, Chase, Attack }
     private State currentState = State.Idle;
+
+    private float attackTimer = 0f;
 
     private void Awake()
     {
@@ -29,6 +38,8 @@ public class GruntEnemy : MonoBehaviour
 
     private void Update()
     {
+        float distance = player != null ? Vector3.Distance(transform.position, player.position) : Mathf.Infinity;
+
         switch (currentState)
         {
             // check if the player is within sight range, if yes chase RAAHHHHHH
@@ -38,8 +49,6 @@ public class GruntEnemy : MonoBehaviour
                 break;
             // RAAAAHHHHHHH chase player and lose interest if they get far enough away
             case State.Chase:
-                float distance = Vector3.Distance(transform.position, player.position);
-
                 if (distance > loseInterestRange)
                 {
                     currentState = State.Idle;
@@ -47,33 +56,76 @@ public class GruntEnemy : MonoBehaviour
                     break;
                 }
 
+                if (distance <= attackRange)
+                {
+                    currentState = State.Attack;
+                    agent.ResetPath(); // stop moving to attack
+                    break;
+                }
+
                 agent.SetDestination(player.position);
+                break;
+
+            case State.Attack:
+                if (distance > loseInterestRange)
+                {
+                    currentState = State.Idle;
+                    break;
+                }
+
+                // player backed out of range, go back to chasing
+                if (distance > attackRange)
+                {
+                    currentState = State.Chase;
+                    break;
+                }
+
+                FacePlayer();
+
+                attackTimer -= Time.deltaTime;
+                if (attackTimer <= 0f)
+                {
+                    attackTimer = attackCooldown;
+                    PerformAttack();
+                }
                 break;
         }
 
-        // drive animator with agent speed
         if (animator != null)
             animator.SetFloat("Speed", agent.velocity.magnitude);
     }
 
+    private void FacePlayer()
+    {
+        Vector3 dir = player.position - transform.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.0001f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 10f);
+    }
+
+    private void PerformAttack()
+    {
+        if (animator != null)
+            animator.SetTrigger("Attack");
+    }
+
     private bool CanSeePlayer()
     {
-        Vector3 eyeOffset = Vector3.up * 1f; // adjust to roughly chest/eye height for your models, without this the enemy was sometimes just looking at the floor
+        Vector3 eyeOffset = Vector3.up * 1f;
         Vector3 origin = transform.position + eyeOffset;
         Vector3 targetPoint = player.position + eyeOffset;
-
         Vector3 toPlayer = targetPoint - origin;
         float distance = toPlayer.magnitude;
 
         if (distance > detectionRange)
             return false;
 
-        // gets the field of view for the sight cone
         float angle = Vector3.Angle(transform.forward, toPlayer);
         if (angle > fieldOfView * 0.5f)
             return false;
 
-        // sends out a raycast to find player. if it hits a wall before player then sight is blocked if not chase player
         if (requireLineOfSight)
         {
             bool hitSomething = Physics.Raycast(origin, toPlayer.normalized, out RaycastHit hit, detectionRange, obstacleMask);
@@ -84,12 +136,13 @@ public class GruntEnemy : MonoBehaviour
         return true;
     }
 
-    // shows the detection/lose interest range in the scene view
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, loseInterestRange);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }

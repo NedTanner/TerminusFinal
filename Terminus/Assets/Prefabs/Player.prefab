@@ -75,7 +75,7 @@ Transform:
   m_GameObject: {fileID: 1326747919864980137}
   serializedVersion: 2
   m_LocalRotation: {x: 0.22361863, y: 0.1404308, z: -0.032577123, w: 0.9639568}
-  m_LocalPosition: {x: -0.9774892, y: 3.6799722, z: -3.28368}
+  m_LocalPosition: {x: -0.97748923, y: 6.8399725, z: -8.843681}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 474520943316003348}
   - component: {fileID: 7752497277317460184}
   - component: {fileID: 8171327193355534220}
+  - component: {fileID: 5526516925842234719}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -422,6 +423,19 @@ MonoBehaviour:
   rotator: {fileID: 886706435620172157}
   playerInput: {fileID: 3288750928448386989}
   playerCamera: {fileID: 1708328992456512351}
+--- !u!114 &5526516925842234719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864709409134697163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8289661e59b2154eaffdff1d3989166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  health: 10
 --- !u!1 &2992380880993403615
 GameObject:
   m_ObjectHideFlags: 0

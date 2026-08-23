@@ -23,7 +23,7 @@ namespace UI
         }
 
         // Update is called once per frame
-        private void Update()
+       /* private void Update()
         {
             _healthBar.value = playerHealth.CurrentHealth;
             _healthBar.highValue = playerHealth.MaxHealth;
@@ -32,6 +32,6 @@ namespace UI
             _powerBar.value = playerPower.CurrentPower;
             _powerBar.highValue = playerPower.MaxPower;
             _powerBar.lowValue = 0;
-        }
+        }*/
     }
 }

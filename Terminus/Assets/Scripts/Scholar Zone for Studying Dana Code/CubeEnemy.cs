@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Enemy
-{
+{ /*
     public class CubeEnemy : MonoBehaviour, IDamageable
     {
         private static readonly int Hit = Animator.StringToHash("Hit");
@@ -222,5 +222,5 @@ namespace Enemy
             }
         }
 
-    }
+    } */
 }

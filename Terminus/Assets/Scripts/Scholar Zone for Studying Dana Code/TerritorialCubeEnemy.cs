@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 namespace Enemy
-{
+{/*
     public class TerritorialCubeEnemy : MonoBehaviour, IDamageable
     {
         private static readonly int Hit = Animator.StringToHash("Hit");
@@ -278,5 +278,5 @@ namespace Enemy
                 _currentState = EnemyState.Chase;
             }
         }
-    }
+    } */
 }

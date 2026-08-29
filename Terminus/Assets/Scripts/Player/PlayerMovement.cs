@@ -165,7 +165,6 @@ namespace Player
 
         public void EnterAttack()
         {
-            Debug.Log("ENTERED ATTACK");
             transform.rotation = Quaternion.Euler(0f, playerCameraTransform.eulerAngles.y, 0f);
 
             _currentMovementState = PlayerMovementStates.Attacking;

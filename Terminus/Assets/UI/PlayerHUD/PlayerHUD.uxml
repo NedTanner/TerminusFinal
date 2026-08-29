@@ -1,17 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/PlayerHUD/PlayerHUD.uss?fileID=7433441132597879392&amp;guid=8ee24a3dab65348798c1a3a7c766613c&amp;type=3#PlayerHUD"/>
     <ui:VisualElement enabled="true" style="flex-grow: 1; flex-direction: row; margin-top: 20px; margin-right: 20px; margin-bottom: 20px; margin-left: 20px; align-self: auto; align-items: flex-start; justify-content: flex-start; align-content: auto;">
-        <ui:Image source="project://database/Assets/Textures/UI/PlayerHUD/ReedPortrait.png?fileID=2800000&amp;guid=c6622526b36c09f78a96e9aa17abebef&amp;type=3#ReedPortrait" name="Image" style="flex-direction: row; -unity-background-scale-mode: stretch-to-fill;"/>
-        <ui:VisualElement name="VisualElement" class="playerHUD" style="flex-direction: row; align-items: auto; justify-content: flex-start; align-self: auto;">
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-items: flex-start; flex-direction: column; align-self: center; align-content: flex-start; justify-content: center; width: 100%;">
-                <ui:VisualElement name="" class="healthRow">
-                    <ui:ProgressBar value="22" title="" name="healthBar" class="healthBar"/>
-                </ui:VisualElement>
-                <ui:VisualElement class="powerRow">
-                    <ui:ProgressBar value="22" title="" name="powerBar" class="powerBar"/>
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 60px; align-self: auto;"/>
+        <ui:VisualElement style="flex-grow: 1; height: 49px;">
+            <ui:Image/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

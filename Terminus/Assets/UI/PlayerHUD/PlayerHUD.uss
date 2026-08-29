@@ -35,20 +35,18 @@ Label {
     width: 100%;
 }
 
-
 .healthBar .unity-progress-bar__progress {
-    background-image: url("project://database/Assets/Textures/UI/PlayerHUD/health.png?fileID=2800000&amp;guid=9f911453e2346cf2a9ba788e8b271ef5&amp;type=3#health");
+    background-image: url("project://database/Assets/Textures/UI/PlayerHUD/health.png?fileID=2800000&guid=9f911453e2346cf2a9ba788e8b271ef5&type=3#health");
     padding: 0;
     margin: 0;
     border-width: 0;
-    align-items: flex-start; 
-    align-self: flex-start; 
-    width: auto; 
+    align-items: flex-start;
+    align-self: flex-start;
+    width: auto;
     background-repeat: repeat no-repeat;
 }
 
 .healthBar {
-    /*background-color: rgba(98, 33, 21, 0.55);*/
     margin-right: 50px;
 }
 
@@ -58,8 +56,7 @@ Label {
 }
 
 .powerBar .unity-progress-bar__progress {
-    
-    background-image: url("project://database/Assets/Textures/UI/PlayerHUD/power.png?fileID=2800000&amp;guid=2c85dcfcb698c0a9da04961e15d1403a&amp;type=3#power");
+    background-image: url("project://database/Assets/Textures/UI/PlayerHUD/power.png?fileID=2800000&guid=2c85dcfcb698c0a9da04961e15d1403a&type=3#power");
     padding: 0;
     margin: 0;
     border-width: 0;
@@ -85,5 +82,10 @@ Label {
     flex-grow: initial;
     background-image: url("project://database/Assets/Textures/UI/PlayerHUD/background.png?fileID=2800000&guid=c828c2d0c0c3474f38cdafdaf769c96a&type=3#background");
     background-repeat: repeat no-repeat;
-    
+}
+
+.unity-progress-bar {
+    background-image: url("project://database/Assets/Textures/UI/New_UI/healthbar.png?fileID=2800000&guid=d0173c3279feb9b4a9dd890a2e884bc0&type=3#healthbar");
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
 }

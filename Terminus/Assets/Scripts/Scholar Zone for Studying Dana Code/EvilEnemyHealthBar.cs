@@ -2,7 +2,7 @@ using Interfaces;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EnemyHealthBar : MonoBehaviour
+public class EvilEnemyHealthBar : MonoBehaviour
 {
     [SerializeField] private int viewableDistance = 10;
     private VisualElement _rootVe;

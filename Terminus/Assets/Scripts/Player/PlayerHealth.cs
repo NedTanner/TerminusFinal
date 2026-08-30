@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] HealthBar healthBar;
     private float currentHealth;
     float testHeal = 5f;
-    float testHurt = -5f;
+    float testHurt = 5f;
     InputAction healAction;
     InputAction hurtAction;
     public float MaxHealth
@@ -41,25 +41,48 @@ public class PlayerHealth : MonoBehaviour
     {
         if (healAction.WasPressedThisFrame())
         {
-            ChangeHealth(testHeal);
+            HealDamage(testHeal);
         }
         if (hurtAction.WasPressedThisFrame())
         {
-            ChangeHealth(testHurt);
+            TakeDamage(testHurt);
         }
     }
-    public void ChangeHealth(float amount)
+    public void ChangeHealth()
     {
-        float oldHealth = CurrentHealth;
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
-        print(currentHealth);
+       
+        print("reed " + currentHealth);
         healthBar = healthBar.GetComponent<HealthBar>();
         healthBar.UpdateHealthBar();
+        DeathCheck();
+    }
 
+    public void TakeDamage(float amount)
+    {
+        currentHealth -= amount;
+        currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+        ChangeHealth();
     }
   
+    public void HealDamage(float amount)
+    {
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+        ChangeHealth();
+    }
+    public void DeathCheck()
+    {
+        if ( currentHealth <= 0)
+        {
+            Die();
+        }
 
+    }
    
-   
+   public void Die()
+    {
+        print("R.I.P Reed.");
+        GameObject playerCharacter = GameObject.FindWithTag("Player");
+       // Destroy(playerCharacter);
+    }
 }

@@ -9,6 +9,10 @@ public class GruntEnemy : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
 
+    [Header("Range")]
+    [SerializeField] private float aggroRange = 20f; // Distance from startingPosition enemy can travel before resetting to idle behaviour and returning home
+    private Vector3 startingPosition;
+
     [Header("Detection")]
     [SerializeField] private float detectionRange = 8f;
     [SerializeField] private float fieldOfView = 90f; // set to 360 to ignore facing angle
@@ -18,12 +22,16 @@ public class GruntEnemy : MonoBehaviour
     [Header("Chase")]
     [SerializeField] private float stoppingDistance = 1.5f;
     [SerializeField] private float loseInterestRange = 12f; // gives up if player runs far enough away
+    private float baseSpeed; // base running speed
+    private float baseAngularSpeed; // base turning speed
 
     [Header("Attack")]
     [SerializeField] private float attackRange = 2f;       // distance at which it stops and swings
     [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
+
+    
 
     private enum State { Idle, Chase, Attack }
     private State currentState = State.Idle;
@@ -33,12 +41,28 @@ public class GruntEnemy : MonoBehaviour
     private void Awake()
     {
         if (agent == null) agent = GetComponent<NavMeshAgent>();
+
+        player = GameObject.FindWithTag("Player").transform; // Sets player target automatically, don't have to manually set when you drag in prefab now
+
         agent.stoppingDistance = stoppingDistance;
+        baseSpeed = agent.speed;
+        baseAngularSpeed = agent.angularSpeed;
+
+        startingPosition = transform.position; // Sets enemy territory, they return here after losing interest in player
     }
 
     private void Update()
     {
+        if (attackTimer > 0)
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        // Stops enemy movement and rotation, only when attacking
+        agent.speed = attackTimer > 0f ? 0f : baseSpeed;
+        agent.angularSpeed = attackTimer > 0f ? 0f : baseAngularSpeed;
+
         float distance = player != null ? Vector3.Distance(transform.position, player.position) : Mathf.Infinity;
+        bool outOfRange = Vector3.Distance(transform.position, startingPosition) > aggroRange;
 
         switch (currentState)
         {
@@ -49,10 +73,18 @@ public class GruntEnemy : MonoBehaviour
                 break;
             // RAAAAHHHHHHH chase player and lose interest if they get far enough away
             case State.Chase:
+
+                if (outOfRange)
+                {
+                    currentState = State.Idle;
+                    agent.SetDestination(startingPosition);
+                    break;
+                }
+
                 if (distance > loseInterestRange)
                 {
                     currentState = State.Idle;
-                    agent.ResetPath();
+                    agent.SetDestination(startingPosition);
                     break;
                 }
 
@@ -67,6 +99,7 @@ public class GruntEnemy : MonoBehaviour
                 break;
 
             case State.Attack:
+
                 if (distance > loseInterestRange)
                 {
                     currentState = State.Idle;
@@ -80,9 +113,6 @@ public class GruntEnemy : MonoBehaviour
                     break;
                 }
 
-                FacePlayer();
-
-                attackTimer -= Time.deltaTime;
                 if (attackTimer <= 0f)
                 {
                     attackTimer = attackCooldown;
@@ -107,6 +137,7 @@ public class GruntEnemy : MonoBehaviour
 
     private void PerformAttack()
     {
+        FacePlayer();
         if (animator != null)
             animator.SetTrigger("Attack");
     }

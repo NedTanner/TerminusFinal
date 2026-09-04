@@ -1,4 +1,5 @@
 using Interfaces;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,8 +25,10 @@ public class EnemyRook : MonoBehaviour
     [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
+    [SerializeField] private float windupTime = 1.5f;
+    [SerializeField] private float dashSpeed = 5.0f;
 
-    private enum State { Idle, Chase, Attack }
+    private enum State { Idle, Chase, Attack, Windup }
     private State currentState = State.Idle;
 
     private float attackTimer = 0f;
@@ -45,8 +48,9 @@ public class EnemyRook : MonoBehaviour
             // check if the player is within sight range, if yes chase RAAHHHHHH
             case State.Idle:
                 if (CanSeePlayer())
-                    currentState = State.Chase;
+                    currentState = State.Windup;
                 break;
+
             // RAAAAHHHHHHH chase player and lose interest if they get far enough away
             case State.Chase:
                 if (distance > loseInterestRange)
@@ -66,28 +70,14 @@ public class EnemyRook : MonoBehaviour
                 agent.SetDestination(player.position);
                 break;
 
+            case State.Windup:
+                animator.SetTrigger("Windup");
+                currentState = State.Attack;
+                break;
+
             case State.Attack:
-                if (distance > loseInterestRange)
-                {
-                    currentState = State.Idle;
-                    break;
-                }
-
-                // player backed out of range, go back to chasing
-                if (distance > attackRange)
-                {
-                    currentState = State.Chase;
-                    break;
-                }
-
-                FacePlayer();
-
-                attackTimer -= Time.deltaTime;
-                if (attackTimer <= 0f)
-                {
-                    attackTimer = attackCooldown;
-                    PerformAttack();
-                }
+                Invoke("RookAttack", windupTime);
+                currentState = State.Idle;
                 break;
         }
 
@@ -134,6 +124,13 @@ public class EnemyRook : MonoBehaviour
         }
 
         return true;
+    }
+
+    void RookAttack()
+    {
+        FacePlayer();
+        PerformAttack();
+        transform.position = Vector3.MoveTowards(transform.position, player.position, dashSpeed * Time.deltaTime);
     }
 
     private void OnDrawGizmosSelected()

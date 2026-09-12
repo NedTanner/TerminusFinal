@@ -10,7 +10,7 @@ namespace Player
         private InputAction _moveAction;
         private InputAction _dodgeAction;
         private InputAction _throwAction;
-        
+        private InputAction _interactAction;
         public Vector2 MoveVector { get; private set; }
         public bool Dodge { get; private set; }
         public bool Throw { get; private set; }

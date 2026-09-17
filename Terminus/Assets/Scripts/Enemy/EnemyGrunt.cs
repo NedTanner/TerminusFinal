@@ -28,10 +28,10 @@ public class GruntEnemy : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 2f;       // distance at which it stops and swings
     [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
-    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float attackDamage = 2;
     [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
 
-    
+    private PlayerHealth playerHealth;
 
     private enum State { Idle, Chase, Attack }
     private State currentState = State.Idle;
@@ -140,7 +140,17 @@ public class GruntEnemy : MonoBehaviour
         FacePlayer();
         if (animator != null)
             animator.SetTrigger("Attack");
+        PlayerHit();
     }
+
+    private void PlayerHit()
+    {
+      
+            playerHealth = player.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage(attackDamage);
+        
+    }
+
 
     private bool CanSeePlayer()
     {

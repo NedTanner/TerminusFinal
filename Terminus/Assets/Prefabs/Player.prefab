@@ -74,8 +74,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326747919864980137}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22361863, y: 0.1404308, z: -0.032577123, w: 0.9639568}
-  m_LocalPosition: {x: -0.97748923, y: 6.8399725, z: -8.843681}
+  m_LocalRotation: {x: 0.4014223, y: 0.33588126, z: -0.16114417, w: 0.83670574}
+  m_LocalPosition: {x: 9.428726, y: 4.629101, z: 8.620537}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -280,6 +280,7 @@ Transform:
   - {fileID: 4750771669862115399}
   - {fileID: 2256667313850701545}
   - {fileID: 8115519424903414423}
+  - {fileID: 7372672777349228281}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &6579881143483601322
@@ -358,7 +359,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 7845510524096543198}
   attackCooldown: 0.5
   bufferedAttackTimer: 0.3
-  weaponCollider: {fileID: 0}
+  weaponCollider: {fileID: 4775681366870701536}
   comboIndex: 0
 --- !u!114 &7752497277317460184
 MonoBehaviour:
@@ -435,7 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8289661e59b2154eaffdff1d3989166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  health: 10
+  maxHealth: 10
+  healthBar: {fileID: 0}
 --- !u!1 &2992380880993403615
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +469,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1790924070054594209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3950143968403677674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7372672777349228281}
+  - component: {fileID: 4775681366870701536}
+  - component: {fileID: 8905342072683407624}
+  m_Layer: 0
+  m_Name: DamageZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7372672777349228281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950143968403677674}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.24, y: 1.093, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1790924070054594209}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4775681366870701536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950143968403677674}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7690225, y: 1.5947098, z: 2.0874174}
+  m_Center: {x: -0.4982406, y: -0.5175138, z: 0.6387807}
+--- !u!114 &8905342072683407624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3950143968403677674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89817ef83524e84db95a086882b97d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageZone
+  attackDamage: 5
 --- !u!1 &5760062026187029698
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,8 +834,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375993174562836139}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22361861, y: 0.1404308, z: -0.032577123, w: 0.9639568}
-  m_LocalPosition: {x: -0.9774892, y: 3.6799722, z: -3.28368}
+  m_LocalRotation: {x: 0.42601395, y: 0.3309641, z: -0.17101607, w: 0.82445645}
+  m_LocalPosition: {x: -1.5882739, y: 4.863101, z: -1.6594626}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -849,7 +918,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 16.577265
+    Value: 43.74431
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -859,7 +928,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 29.01298
+    Value: 41.57376
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0

@@ -11,6 +11,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float bufferedAttackTimer = 0.2f;
+    
 
     [SerializeField] private Collider weaponCollider;
 
@@ -45,6 +46,7 @@ public class PlayerCombat : MonoBehaviour
             if (bufferTimer <= 0)
             {
                 bufferedAttack = false;
+                
             }    
         }
 
@@ -70,6 +72,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!CanAttack()) // If player clicks attack while actively attacking, caches input for a small time to feel more responsive.
         {
+            
             bufferedAttack = true;
             bufferTimer = bufferedAttackTimer;
             return;
@@ -88,6 +91,9 @@ public class PlayerCombat : MonoBehaviour
         playerAnimator.SetTrigger("Attack");
 
         comboIndex = comboIndex % 2 + 1; // REMEMBER THIS. If making longer movesets, change '2' to number that changes based on moveset length.
+
+        
+
     }
 
     private bool CanAttack()

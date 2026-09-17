@@ -9,7 +9,7 @@ public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] Image healthBar;
     [SerializeField] EnemyHealth enemyHealth;
-    [SerializeField] Camera playerCamera;
+  //  [SerializeField] Camera playerCamera;
     [SerializeField] Transform target;
 
     public void UpdateHealthBar()
@@ -22,6 +22,6 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Update()
     {
-        transform.rotation = playerCamera.transform.rotation;
+       // transform.rotation = playerCamera.transform.rotation;
     }
 }

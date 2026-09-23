@@ -14,8 +14,7 @@ public class DamageZone : MonoBehaviour
     private void Awake()
     {
         attackAction = InputSystem.actions.FindAction("Attack");
-        GameObject enemy = GameObject.FindWithTag("Enemy");
-        enemyHealth = enemy.GetComponent<EnemyHealth>();
+        
     }
 
     void Update()
@@ -29,9 +28,9 @@ public class DamageZone : MonoBehaviour
        
        
 
-        if (attackAction.WasPressedThisFrame())
+        if (attackAction.WasPressedThisFrame() && other.CompareTag("Enemy"))
         {
-            
+            enemyHealth = other.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(attackDamage);
         }
 

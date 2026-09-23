@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private GameObject grunt;
+   
     [SerializeField] private float maxHealth = 20f;
     [SerializeField] EnemyHealthBar enemyHealthBar;
     private float currentHealth;
@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
         healAction = InputSystem.actions.FindAction("Heal");
         hurtAction = InputSystem.actions.FindAction("Hurt");
         currentHealth = maxHealth;
-        GameObject grunt = GameObject.FindWithTag("Enemy");
+        
     }
 
     private void Update()
@@ -87,6 +87,6 @@ public class EnemyHealth : MonoBehaviour
     {
         print("bye bye little grunt");
 
-        Destroy(grunt.gameObject);
+        
     }
 }

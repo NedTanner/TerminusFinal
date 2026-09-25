@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections;
 public abstract class Interactabule : MonoBehaviour
 {
+    //add or remove an InteractionEvent component to this gameobject
+    public bool useEvents;
     //message displayed to player when looking at an interactibule.
     public string promptMessage;
 
@@ -10,6 +12,10 @@ public abstract class Interactabule : MonoBehaviour
 
     public void BaseInteract()
     {
+        if (useEvents)
+        
+            GetComponent<InteractionEvent>().OnInteract.Invoke();
+        
         Interact();
     }
 

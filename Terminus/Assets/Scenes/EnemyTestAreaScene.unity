@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 870805037}
   - component: {fileID: 870805036}
   - component: {fileID: 870805040}
+  - component: {fileID: 870805041}
   m_Layer: 10
   m_Name: test interact
   m_TagString: Untagged
@@ -641,7 +642,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1499409bba09b47967d78f435ce2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Leaver
+  useEvents: 1
   promptMessage: test leaver
+--- !u!114 &870805041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870805035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 066bbf10eabe11f408a792b18740296a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionEvent
+  OnInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 870805035}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &887228989
 GameObject:
   m_ObjectHideFlags: 0

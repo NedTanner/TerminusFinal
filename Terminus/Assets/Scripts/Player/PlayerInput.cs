@@ -14,7 +14,7 @@ namespace Player
         public Vector2 MoveVector { get; private set; }
         public bool Dodge { get; private set; }
         public bool Throw { get; private set; }
-
+        public bool Interact { get; private set; }
         private void Awake()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -31,6 +31,10 @@ namespace Player
             _throwAction = playerControls.FindActionMap("Player").FindAction("Throw");
             _throwAction.started += _ => Throw = true;
             _throwAction.canceled += _ => Throw = false;
+
+            _interactAction = playerControls.FindActionMap("Player").FindAction("Interact");
+            _interactAction.started += _ => Interact = true;
+            _interactAction.canceled += _ => Interact = false;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -335,21 +336,32 @@ namespace Player
             return moveDir;
         }
 
-        // For use with the animator. Applies movement forward with customisable force. Baseline is 0.5f.
-        public void ForwardAttackForce(float force)
+        public void CallMovementEnumerator(float duration)
         {
-            float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
+            StartCoroutine(AttackForceMovement(duration));
+        }
+        // For use with the animator, moves player when AnimatorPlayerBridge calls from Animation Event. Did I mention I hate this?
+        private IEnumerator AttackForceMovement(float duration)
+        {
+            float timeElapsed = 0f;
 
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            moveDir = Vector3.ProjectOnPlane(moveDir, groundNormal);
-
-            characterController.Move(moveDir * force);
-
-            /*if (Grounded)
+            while (timeElapsed < duration)
             {
-                characterController.Move(transform.forward * force);
-            }*/
+                timeElapsed += Time.deltaTime;
+                float t = timeElapsed / duration; // Percentage completion to gradually reduce movement force
+
+                float movementForce = 0.05f * (1f - t);
+
+                float targetAngle = Mathf.Atan2(playerInput.MoveVector.x, playerInput.MoveVector.y) * Mathf.Rad2Deg + playerCameraTransform.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothing);
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                moveDir = Vector3.ProjectOnPlane(moveDir, groundNormal);
+
+                characterController.Move(moveDir * movementForce);
+
+                yield return null;
+            }
         }
     }
 }

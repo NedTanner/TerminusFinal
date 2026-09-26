@@ -19,8 +19,8 @@ public class AnimatorPlayerBridge : MonoBehaviour
         playerCombat.DisableDamage();
     }
 
-    public void ForwardForceBridge(float force)
+    public void ForwardForceBridge(float duration)
     {
-        playerMovement.ForwardAttackForce(force);
+        playerMovement.CallMovementEnumerator(duration);
     }
 }

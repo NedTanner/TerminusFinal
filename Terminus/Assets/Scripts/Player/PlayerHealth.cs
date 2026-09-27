@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void Update()
     {
+        // purely for testing purposes lol
         if (healAction.WasPressedThisFrame())
         {
             HealDamage(testHeal);
@@ -50,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void ChangeHealth()
     {
-       
+       // update healthbar and death check
         print("reed " + currentHealth);
         healthBar = healthBar.GetComponent<HealthBar>();
         healthBar.UpdateHealthBar();
@@ -80,7 +81,8 @@ public class PlayerHealth : MonoBehaviour
     }
    
    public void Die()
-    {
+    { 
+        // empty for now 
         print("R.I.P Reed.");
         GameObject playerCharacter = GameObject.FindWithTag("Player");
        // Destroy(playerCharacter);

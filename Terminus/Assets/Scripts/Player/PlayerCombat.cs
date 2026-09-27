@@ -7,10 +7,13 @@ public class PlayerCombat : MonoBehaviour
 {
     private InputAction attackAction;
     private PlayerMovement playerMovement;
+    private PlayerPower playerPower;
 
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float bufferedAttackTimer = 0.2f;
+    [SerializeField] public float weaponPower = 2f;
+    [SerializeField] public float weaponRegen = 1f;
     
 
     [SerializeField] private Collider weaponCollider;
@@ -27,6 +30,7 @@ public class PlayerCombat : MonoBehaviour
     {
         attackAction = InputSystem.actions.FindAction("Attack");
         playerMovement = GetComponent<PlayerMovement>();
+        playerPower = GetComponent<PlayerPower>(); 
 
         attackAction.performed += _ => AttackAttempt();
         comboIndex = 1;
@@ -92,7 +96,7 @@ public class PlayerCombat : MonoBehaviour
 
         comboIndex = comboIndex % 2 + 1; // REMEMBER THIS. If making longer movesets, change '2' to number that changes based on moveset length.
 
-        
+        playerPower.UsePower();
 
     }
 

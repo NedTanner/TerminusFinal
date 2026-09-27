@@ -8,11 +8,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 20f;
     [SerializeField] EnemyHealthBar enemyHealthBar;
     private float currentHealth;
-
-    float testHeal = 5f;
-    float testHurt = 5f;
-    InputAction healAction;
-    InputAction hurtAction;
+    
+    
 
     public float MaxHealth
     {
@@ -35,23 +32,12 @@ public class EnemyHealth : MonoBehaviour
     
     private void Start()
     {
-        healAction = InputSystem.actions.FindAction("Heal");
-        hurtAction = InputSystem.actions.FindAction("Hurt");
+        
         currentHealth = maxHealth;
         
     }
 
-    private void Update()
-    {
-       // if (healAction.WasPressedThisFrame())
-        {
-       //     HealDamage(testHeal);
-        }
-       // if (hurtAction.WasPressedThisFrame())
-        {
-        //    TakeDamage(testHurt);
-        }
-    }
+    
     public void ChangeHealth()
     {
         print("grunt " + currentHealth);
@@ -62,7 +48,8 @@ public class EnemyHealth : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
-        currentHealth -= amount;
+        
+        currentHealth -= amount; 
         currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
         ChangeHealth();
 

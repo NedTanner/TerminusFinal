@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.34000015
+      value: -2.52
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.009999752
+      value: -0.009999909
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.037940025
+      value: 2.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,9 +48,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7275803327936352283, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -7063088818894641790, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -5578710521328771973, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -4713342220655766214, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -129786778469443355, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 434956292334849427, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_Name
       value: Little Bitch (Grunt)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
       propertyPath: m_IsActive
@@ -60,6 +88,18 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 2ea6dbd2555ac28be9815d4f010d6cdf, type: 2}
+    - target: {fileID: 6771041998497112093, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982257621501138843, guid: e37d81b4106c90267ae23a00b5536929, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -144,10 +184,14 @@ MonoBehaviour:
   agent: {fileID: 6101134571897957294}
   animator: {fileID: 4690447868630082895}
   detectionRange: 8
-  fieldOfView: 360
+  fieldOfView: 100
   obstacleMask:
     serializedVersion: 2
     m_Bits: 192
   requireLineOfSight: 1
   stoppingDistance: 1.5
   loseInterestRange: 12
+  attackRange: 2
+  attackCooldown: 1.5
+  attackDamage: 10
+  attackWindup: 0.4

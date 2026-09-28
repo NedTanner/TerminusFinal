@@ -1,3 +1,4 @@
+using System.Collections;
 using Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -27,11 +28,19 @@ public class EnemyRook : MonoBehaviour
     [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
     [SerializeField] private float windupTime = 1.5f;
     [SerializeField] private float dashSpeed = 5.0f;
+    [SerializeField] private float stun = 5.0f;
 
-    private enum State { Idle, Chase, Attack, Windup }
+    [Header("Dash Collision")]
+    [SerializeField] private LayerMask enemyMask;  // layer(s) other enemies live on
+    [SerializeField] private float dashCollisionRadius = 0.6f;
+    [SerializeField] private float knockbackForce = 8f;
+
+    private enum State { Idle, Chase, Attack, Windup, Stunned }
     private State currentState = State.Idle;
 
     private float attackTimer = 0f;
+    private Vector3 dashTarget;
+    private bool isAttacking = false;
 
     private void Awake()
     {
@@ -72,12 +81,20 @@ public class EnemyRook : MonoBehaviour
 
             case State.Windup:
                 animator.SetTrigger("Windup");
+                // Locks on dash the player via raycast so the dash doesn't
+                dashTarget = CalculateDashTarget();
                 currentState = State.Attack;
                 break;
 
             case State.Attack:
-                Invoke("RookAttack", windupTime);
-                currentState = State.Idle;
+                if (!isAttacking)
+                {
+                    isAttacking = true;
+                    Invoke(nameof(BeginDash), windupTime);
+                }
+                break;
+
+            case State.Stunned:
                 break;
         }
 
@@ -126,11 +143,76 @@ public class EnemyRook : MonoBehaviour
         return true;
     }
 
-    void RookAttack()
+    // Casts toward the player once and returns the point the rook should dash to:
+    // either where the raycast hits an obstacle, or a point along that direction
+    private Vector3 CalculateDashTarget()
+    {
+        Vector3 eyeOffset = Vector3.up * 1f;
+        Vector3 origin = transform.position + eyeOffset;
+        Vector3 dir = (player.position - transform.position);
+        dir.y = 0f;
+        dir = dir.sqrMagnitude > 0.0001f ? dir.normalized : transform.forward;
+
+        float castDistance = Vector3.Distance(transform.position, player.position);
+
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, castDistance, obstacleMask))
+        {
+            // Stop short of whatever it hit, don't dash into a wall
+            return hit.point - dir * 0.3f;
+        }
+
+        return transform.position + dir * castDistance;
+    }
+
+    private void BeginDash()
+    {
+        StartCoroutine(DashRoutine());
+    }
+
+    private IEnumerator DashRoutine()
     {
         FacePlayer();
         PerformAttack();
-        transform.position = Vector3.MoveTowards(transform.position, player.position, dashSpeed * Time.deltaTime);
+
+        // Hand movement over from the NavMeshAgent to a manual dash for the duration.
+        agent.ResetPath();
+        agent.enabled = false;
+
+        float remaining = Vector3.Distance(transform.position, dashTarget);
+
+        while (remaining > 0.05f)
+        {
+            Vector3 nextPos = Vector3.MoveTowards(transform.position, dashTarget, dashSpeed * Time.deltaTime);
+
+            HandleDashCollisions(nextPos);
+
+            transform.position = nextPos;
+            remaining = Vector3.Distance(transform.position, dashTarget);
+            yield return null;
+        }
+
+        agent.enabled = true;
+        currentState = State.Stunned;
+
+        if (animator != null)
+            animator.SetBool("Stunned", true);
+
+        float stunTime = stun;
+        yield return new WaitForSeconds(stunTime);
+
+        if (animator != null)
+            animator.SetBool("Stunned", false);
+
+        isAttacking = false;
+        currentState = State.Idle;
+
+    }
+
+    // Checks for other enemies in the rook's path and shoves them aside so it
+    // doesn't just clip through them mid-dash.
+    private void HandleDashCollisions(Vector3 nextPos)
+    {
+        //code for knockback collisions
     }
 
     private void OnDrawGizmosSelected()
@@ -141,5 +223,12 @@ public class EnemyRook : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, loseInterestRange);
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        if (Application.isPlaying && currentState == State.Attack)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawLine(transform.position, dashTarget);
+            Gizmos.DrawWireSphere(dashTarget, 0.3f);
+        }
     }
 }

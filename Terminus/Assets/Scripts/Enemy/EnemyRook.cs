@@ -29,6 +29,7 @@ public class EnemyRook : MonoBehaviour
     [SerializeField] private float windupTime = 1.5f;
     [SerializeField] private float dashSpeed = 5.0f;
     [SerializeField] private float stun = 5.0f;
+    [SerializeField] private LineRenderer dashTelegraph;
 
     [Header("Dash Collision")]
     [SerializeField] private LayerMask enemyMask;  // layer(s) other enemies live on
@@ -83,6 +84,7 @@ public class EnemyRook : MonoBehaviour
                 animator.SetTrigger("Windup");
                 // Locks on dash the player via raycast so the dash doesn't
                 dashTarget = CalculateDashTarget();
+                ShowDashTelegraph(dashTarget);
                 currentState = State.Attack;
                 break;
 
@@ -166,6 +168,7 @@ public class EnemyRook : MonoBehaviour
 
     private void BeginDash()
     {
+        HideDashTelegraph();
         StartCoroutine(DashRoutine());
     }
 
@@ -213,6 +216,24 @@ public class EnemyRook : MonoBehaviour
     private void HandleDashCollisions(Vector3 nextPos)
     {
         //code for knockback collisions
+    }
+
+    //shows the dash telegraph
+    private void ShowDashTelegraph(Vector3 target)
+    {
+        if (dashTelegraph == null) return;
+
+        dashTelegraph.enabled = true;
+        dashTelegraph.positionCount = 2;
+        dashTelegraph.SetPosition(0, transform.position);
+        dashTelegraph.SetPosition(1, target);
+    }
+
+    // hides the telegraph once the dash begins
+    private void HideDashTelegraph()
+    {
+        if (dashTelegraph == null) return;
+        dashTelegraph.enabled = false;
     }
 
     private void OnDrawGizmosSelected()

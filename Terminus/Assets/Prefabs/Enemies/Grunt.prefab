@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406cfd5a5ef4f5d499b26c99c6105ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  grunt: {fileID: 7427171598984325300}
   maxHealth: 20
   enemyHealthBar: {fileID: 3358646817338174432}
 --- !u!136 &5192043479735428293
@@ -394,6 +393,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7040801446548865956, guid: 11ab74822d1f01145925be265330b933, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f4a08cfb0e97bf14cbbfaf178d81649e, type: 2}
+    - target: {fileID: -6547223059409353530, guid: 11ab74822d1f01145925be265330b933, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f4a08cfb0e97bf14cbbfaf178d81649e, type: 2}
+    - target: {fileID: -4396642182433536433, guid: 11ab74822d1f01145925be265330b933, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f4a08cfb0e97bf14cbbfaf178d81649e, type: 2}
     - target: {fileID: -666985854777507172, guid: 11ab74822d1f01145925be265330b933, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -402,6 +413,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GruntModel
       objectReference: {fileID: 0}
+    - target: {fileID: 2619267824123036486, guid: 11ab74822d1f01145925be265330b933, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f4a08cfb0e97bf14cbbfaf178d81649e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

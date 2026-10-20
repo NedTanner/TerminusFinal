@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 10
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 3791999879677115552}
 --- !u!114 &8902094385850411987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 7675082661483362198}
   - component: {fileID: 3791999879677115552}
   m_Layer: 5
-  m_Name: Health Bar
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,8 +1295,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375993174562836139}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.21146776, y: 0.7088079, z: 0.23814243, w: 0.62941325}
-  m_LocalPosition: {x: -2.4872355, y: 0.10272581, z: 0.29617047}
+  m_LocalRotation: {x: -0.3159205, y: 0.13645506, z: 0.045968376, w: 0.93779594}
+  m_LocalPosition: {x: -0.7124469, y: 0.1, z: -2.3963346}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1379,7 +1379,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 96.79058
+    Value: 16.55758
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1389,7 +1389,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: -9.936363
+    Value: -10
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0

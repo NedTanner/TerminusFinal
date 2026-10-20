@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326747919864980137}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4014223, y: 0.33588126, z: -0.16114417, w: 0.83670574}
-  m_LocalPosition: {x: -1.588274, y: 4.863101, z: -1.6594625}
+  m_LocalRotation: {x: -0.21146773, y: 0.70880795, z: 0.23814248, w: 0.6294131}
+  m_LocalPosition: {x: 8.529764, y: -0.1312742, z: 6.6061707}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -673,7 +673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -869.31, y: 402}
+  m_AnchoredPosition: {x: -884.31055, y: 403.99994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5870934821654337695
@@ -762,7 +762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -525.16003, y: 414.23004}
+  m_AnchoredPosition: {x: -540.16003, y: 416.22992}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5593503136119232740
@@ -900,7 +900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -773, y: 402}
+  m_AnchoredPosition: {x: -788, y: 404}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7382722494089144222
@@ -1031,10 +1031,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1295,8 +1295,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8375993174562836139}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40142232, y: 0.33588123, z: -0.16114412, w: 0.8367058}
-  m_LocalPosition: {x: -1.588274, y: 4.863101, z: -1.6594629}
+  m_LocalRotation: {x: -0.21146776, y: 0.7088079, z: 0.23814243, w: 0.62941325}
+  m_LocalPosition: {x: -2.4872355, y: 0.10272581, z: 0.29617047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1379,7 +1379,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 43.74431
+    Value: 96.79058
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1389,7 +1389,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 41.57376
+    Value: -9.936363
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0

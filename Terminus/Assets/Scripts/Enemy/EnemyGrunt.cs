@@ -29,6 +29,7 @@ public class GruntEnemy : MonoBehaviour
     [SerializeField] private float attackRange = 2f;       // distance at which it stops and swings
     [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
     [SerializeField] private float attackDamage = 2;
+    [SerializeField] private float attackWindup = 0.4f;    // delay before damage lands, sync with anim
 
     private PlayerHealth playerHealth;
 

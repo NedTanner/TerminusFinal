@@ -5,6 +5,7 @@ public class PlayerPower : MonoBehaviour
     [SerializeField] private float maxPower = 10f;
     [SerializeField] PowerBar powerBar;
     private float currentPower;
+    private float timeSinceLastRegen = 1f;
     [SerializeField] public float attackDamage = 5f;
     private PlayerCombat playerCombat;
     [SerializeField] DamageZone damageZone;
@@ -35,10 +36,16 @@ public class PlayerPower : MonoBehaviour
     }
     private void Update()
     {
-        if (currentPower < maxPower)
+       if (timeSinceLastRegen > 0)
         {
-            PowerRegen();
+            timeSinceLastRegen -= Time.deltaTime;
+            
         }
+        if (timeSinceLastRegen < 0) {
+            PowerRegen();
+            timeSinceLastRegen = 3f;
+        }
+
     }
     public void UsePower()
     {
@@ -57,9 +64,16 @@ public class PlayerPower : MonoBehaviour
 
     public void PowerRegen()
     {
-        float weaponRegen = playerCombat.weaponRegen;
-        currentPower += weaponRegen;
-        powerBar.UpdatePowerBar();
+
+
+        if (currentPower < maxPower)
+        {
+            print("weapon regen active");
+            float weaponRegen = playerCombat.weaponRegen;
+            currentPower += weaponRegen;
+            powerBar.UpdatePowerBar();
+            
+        }
       
     }
 
@@ -69,5 +83,7 @@ public class PlayerPower : MonoBehaviour
         float powerModifier = currentPower * 10f / 100f;
         float modifiedDamage = powerModifier * attackDamage;
         damageZone.finalDamage = modifiedDamage;
+        print(modifiedDamage);
+        
     }
  }

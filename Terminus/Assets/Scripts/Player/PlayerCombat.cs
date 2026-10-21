@@ -13,7 +13,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float bufferedAttackTimer = 0.2f;
     [SerializeField] public float weaponPower = 2f;
-    [SerializeField] public float weaponRegen = 1f;
+    [SerializeField] public float weaponRegen = 0.1f;
     
 
     [SerializeField] private Collider weaponCollider;

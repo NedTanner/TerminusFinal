@@ -76,7 +76,7 @@ public class PlayerPower : MonoBehaviour
         float powerModifier = currentPower * 10f / 100f;
         float modifiedDamage = powerModifier * attackDamage;
         damageZone.finalDamage = modifiedDamage;
-        // print(modifiedDamage);
+        
         
     }
  }

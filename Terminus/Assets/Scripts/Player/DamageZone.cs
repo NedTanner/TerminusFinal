@@ -21,14 +21,11 @@ public class DamageZone : MonoBehaviour
     private void Start()
     {
         playerPower = GetComponent<PlayerPower>();
-      // float modifiedDamage = playerPower.finalDamage;
+      
         
     }
 
-    private void Update()
-    {
-        //sattackDamage = modifiedDamage;
-    }
+ 
     void OnTriggerStay(Collider other)
     {
         
@@ -36,8 +33,7 @@ public class DamageZone : MonoBehaviour
         if (attackAction.WasPressedThisFrame() && other.CompareTag("Enemy"))
         {
 
-          //  attackDamage = finalDamage;
-            
+        
             enemyHealth = other.GetComponent<EnemyHealth>();
             enemyHealth.TakeDamage(finalDamage);
         }

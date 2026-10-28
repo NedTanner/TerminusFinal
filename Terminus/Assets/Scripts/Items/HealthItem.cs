@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HealthItem : MonoBehaviour
 {
-    private float healAmount = 5f;
+    [SerializeField] private float healAmount = 5f;
     PlayerHealth playerHealth;
 
    

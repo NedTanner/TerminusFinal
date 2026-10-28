@@ -274,6 +274,7 @@ MonoBehaviour:
   maxHealth: 20
   enemyHealthBar: {fileID: 3358646817338174432}
   deathParticles: {fileID: 7146906048073171254, guid: 455cefcaca70ca145bf16ba0a968d598, type: 3}
+  hurtParticle: {fileID: 8635317673858769232, guid: 58da303729bad744cb96f63115adf506, type: 3}
 --- !u!54 &5335363200021547239
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -320,10 +321,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2.6
+  m_Radius: 0.25
+  m_Height: 2.5242715
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.2378643, z: 0}
 --- !u!1 &8406311062501365321
 GameObject:
   m_ObjectHideFlags: 0

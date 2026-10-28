@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 
 public class PlayerHealth : MonoBehaviour
@@ -8,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] HealthBar healthBar;
+    [SerializeField] ParticleSystem hurtParticle;
+    [SerializeField] ParticleSystem healParticle;
     private float currentHealth;
     float testHeal = 5f;
     InputAction healAction;
@@ -59,8 +62,12 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+
+
+        Vector3 position = transform.position;
+        Instantiate(hurtParticle, position, Quaternion.identity);
+
         ChangeHealth();
-        Debug.Log("Player: " + currentHealth);
     }
   
     public void HealDamage(float amount)
@@ -68,6 +75,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
         ChangeHealth();
+
+        Vector3 position = transform.position;
+        Instantiate(healParticle, position, Quaternion.identity);
     }
     public void DeathCheck()
     {
@@ -82,6 +92,6 @@ public class PlayerHealth : MonoBehaviour
     { 
         // empty for now 
         GameObject playerCharacter = GameObject.FindWithTag("Player");
-       // Destroy(playerCharacter);
+        // Destroy(playerCharacter);
     }
 }

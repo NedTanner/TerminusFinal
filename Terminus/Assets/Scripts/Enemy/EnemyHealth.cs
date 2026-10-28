@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 20f;
     [SerializeField] EnemyHealthBar enemyHealthBar;
     [SerializeField] ParticleSystem deathParticles;
+    [SerializeField] ParticleSystem hurtParticle;
     private float currentHealth;
     
     
@@ -51,6 +53,10 @@ public class EnemyHealth : MonoBehaviour
         
         currentHealth -= amount; 
         currentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+
+        Vector3 position = transform.position;
+        Instantiate(hurtParticle, position, Quaternion.identity);
+
         ChangeHealth();
 
     }

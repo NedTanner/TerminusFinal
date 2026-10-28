@@ -7,7 +7,7 @@ public class PlayerPower : MonoBehaviour
     private float currentPower;
     [SerializeField] public float attackDamage = 5f;
     private PlayerCombat playerCombat;
-    [SerializeField] DamageZone damageZone;
+    [SerializeField] DamageTrigger damageTrigger;
     public float MaxPower
     {
         get => maxPower;
@@ -45,15 +45,10 @@ public class PlayerPower : MonoBehaviour
     {
         
         float weaponPower = playerCombat.weaponPower;
-        currentPower -= weaponPower;
-        powerBar.UpdatePowerBar();
         DamageMod();
-        if (currentPower < 0)
-        {
-            currentPower = 0;
-        }
-        
-
+        currentPower -= weaponPower;
+        currentPower = Mathf.Clamp(currentPower, 0, maxPower);
+        powerBar.UpdatePowerBar();
     }
 
     public void PowerRegen()
@@ -72,11 +67,10 @@ public class PlayerPower : MonoBehaviour
 
     public void DamageMod()
     {
-       
-        float powerModifier = currentPower * 10f / 100f;
+        float powerModifier = currentPower / maxPower;
+        powerModifier = Mathf.Clamp(powerModifier, 0.3f, 1.0f);
         float modifiedDamage = powerModifier * attackDamage;
-        damageZone.finalDamage = modifiedDamage;
-        
-        
+        damageTrigger.damage = modifiedDamage;
+        Debug.Log(powerModifier);
     }
  }

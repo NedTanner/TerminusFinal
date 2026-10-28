@@ -45214,3 +45214,17 @@ AnimationClip:
     floatParameter: 0.25
     intParameter: 0
     messageOptions: 0
+  - time: 0.45833334
+    functionName: ActivateTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.625
+    functionName: DisableTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

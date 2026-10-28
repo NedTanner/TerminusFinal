@@ -28,7 +28,6 @@ public class GruntEnemy : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 2f;       // distance at which it stops and swings
     [SerializeField] private float attackCooldown = 1.5f;  // seconds between attacks
-    [SerializeField] private float attackDamage = 2;
 
     private PlayerHealth playerHealth;
 
@@ -139,15 +138,6 @@ public class GruntEnemy : MonoBehaviour
         FacePlayer();
         if (animator != null)
             animator.SetTrigger("Attack");
-        PlayerHit();
-    }
-
-    private void PlayerHit()
-    {
-      
-            playerHealth = player.GetComponent<PlayerHealth>();
-            playerHealth.TakeDamage(attackDamage);
-        
     }
 
 

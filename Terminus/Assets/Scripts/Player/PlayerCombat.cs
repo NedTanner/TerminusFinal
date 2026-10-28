@@ -14,9 +14,6 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private float bufferedAttackTimer = 0.2f;
     [SerializeField] public float weaponPower = 2f;
     [SerializeField] public float weaponRegen = 0.02f;
-    
-
-    [SerializeField] private Collider weaponCollider;
 
     public bool isAttacking { get; private set; }
 
@@ -103,15 +100,5 @@ public class PlayerCombat : MonoBehaviour
     private bool CanAttack()
     {
         return attackCooldownTimer <= 0 && !isAttacking && playerMovement.CurrentMovementState != PlayerMovementStates.Dodge;
-    }
-
-    public void ActivateDamage()
-    {
-        weaponCollider.enabled = true;
-    }
-
-    public void DisableDamage()
-    {
-        weaponCollider.enabled = false;
     }
 }

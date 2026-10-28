@@ -3,40 +3,25 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DamageZone : MonoBehaviour
-
 {
-    PlayerPower playerPower;
-    EnemyHealth enemyHealth;
-    
-    InputAction attackAction;
-    public float finalDamage;
+    [SerializeField] private bool canDamagePlayer;
+    [SerializeField] private bool canDamageEnemy;
+    [SerializeField] private float damage;
 
-    private void Awake()
+    private void OnTriggerEnter(Collider other)
     {
-        
-        attackAction = InputSystem.actions.FindAction("Attack");
-        
-    }
-
-    private void Start()
-    {
-        playerPower = GetComponent<PlayerPower>();
-      
-        
-    }
-
- 
-    void OnTriggerStay(Collider other)
-    {
-        
-     // attacks once it find an enemy and attack is performed
-        if (attackAction.WasPressedThisFrame() && other.CompareTag("Enemy"))
+        if (other.CompareTag("Player") && canDamagePlayer)
         {
+            PlayerHealth health = other.GetComponent<PlayerHealth>();
 
-        
-            enemyHealth = other.GetComponent<EnemyHealth>();
-            enemyHealth.TakeDamage(finalDamage);
+            health.TakeDamage(damage);
         }
 
+        if (other.CompareTag("Enemy") && canDamageEnemy)
+        {
+            EnemyHealth health = other.GetComponent<EnemyHealth>();
+
+            health.TakeDamage(damage);
+        }
     }
 }

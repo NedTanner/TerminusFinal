@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
    
     [SerializeField] private float maxHealth = 20f;
     [SerializeField] EnemyHealthBar enemyHealthBar;
+    [SerializeField] ParticleSystem deathParticles;
     private float currentHealth;
     
     
@@ -40,7 +41,6 @@ public class EnemyHealth : MonoBehaviour
     
     public void ChangeHealth()
     {
-        print("grunt " + currentHealth);
        
         enemyHealthBar.UpdateHealthBar();
         DeathCheck();
@@ -72,8 +72,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void Die()
     {
-        print("bye bye little grunt");
-
-        
+        Vector3 position = transform.position;
+        Instantiate(deathParticles, position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
